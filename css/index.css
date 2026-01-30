@@ -1,0 +1,308 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans");
+
+/* CSS Reset */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* page css */
+body {
+  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+  background-color: #e1e8ee;
+  color: white;
+  font-size: 1.5em;
+}
+.title {
+  margin-top: 24px;
+  font-size: 1.5em;
+  text-align: center;
+  color: black;
+}
+.container {
+  margin-top: 24px;
+  padding: 0 12px;
+  display: flex;
+  @media (max-width: 1199px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.card {
+  padding: 0 12px;
+  width: 33.33%;
+  @media (max-width: 1199px) {
+    width: 800px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 991px) {
+    width: 600px;
+  }
+  @media (max-width: 767px) {
+    width: 450px;
+  }
+}
+.card-body {
+  padding: 30px 30px;
+  background-color: #a1c9d8;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.198);
+}
+.light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #6e8690;
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  background-color: gray;
+}
+.connect {
+  background-color: rgb(6, 216, 6);
+  animation: blink 1s infinite;
+}
+form {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+.card-input {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.card-input label {
+  margin-right: 10px;
+}
+.select-wrap {
+  flex-grow: 1;
+  position: relative;
+}
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #666;
+  pointer-events: none;
+}
+select,
+input {
+  flex-grow: 1;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 0.66em;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+select {
+  width: 100%;
+}
+.btn-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  width: 48%;
+  padding: 15px 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  border: 0;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.66em;
+}
+.disable {
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: not-allowed;
+}
+.console-title {
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+.console-content {
+  position: relative;
+  z-index: 2;
+  padding: 10px 5px;
+  border-radius: 15px;
+  border: 1px solid #6e8690;
+  background: rgba(0, 0, 0, 0.2);
+  height: 30vh;
+  overflow-y: auto;
+}
+/* scrollbar */
+.console-content::-webkit-scrollbar {
+  width: 6px;
+}
+.console-content::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;
+}
+.console-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+}
+.send-message {
+  color: black;
+}
+.response-message {
+  color: rgb(6, 216, 6);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    background-color: rgb(6, 216, 6);
+  }
+  50% {
+    background-color: transparent;
+  }
+}

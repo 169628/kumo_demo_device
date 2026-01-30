@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <h1 class="title">Kumo Connect Demo</h1>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <div class="backdrop"></div>
+          <div class="light"></div>
+          <form action="">
+            <ul>
+              <li class="card-input">
+                <label for="brand">Brand</label>
+                <div class="select-wrap">
+                  <select name="brand" class="brand" default="">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="Projector">Projector</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Robot Vacuum">Robot Vacuum</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="model">Model</label>
+                <div class="select-wrap">
+                  <select name="model" class="model">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="L1">L1</option>
+                    <option value="Pro L1">Pro L1</option>
+                    <option value="Max">Max</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="sv">SV</label>
+                <input type="text" class="sv" placeholder="ex: V1.0" />
+              </li>
+              <li class="card-input">
+                <label for="sn">SN</label>
+                <input type="text" class="sn" placeholder="ex: BB251021" />
+              </li>
+              <li class="card-input">
+                <label for="status">Status</label>
+                <div class="select-wrap">
+                  <select name="status" class="status">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="downloading">Downloading</option>
+                    <option value="downloaded">Downloaded</option>
+                    <option value="reboot">Reboot</option>
+                    <option value="succeed">Succeed</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+            <div class="btn-wrap">
+              <button class="close btn disable" type="button">
+                Close Connect
+              </button>
+              <button class="submit btn" type="button">Connect</button>
+            </div>
+          </form>
+          <h3 class="console-title">Console</h3>
+          <ul class="console-content"></ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="backdrop"></div>
+          <div class="light"></div>
+          <form action="">
+            <ul>
+              <li class="card-input">
+                <label for="brand">Brand</label>
+                <div class="select-wrap">
+                  <select name="brand" class="brand" default="">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="Projector">Projector</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Robot Vacuum">Robot Vacuum</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="model">Model</label>
+                <div class="select-wrap">
+                  <select name="model" class="model">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="L1">L1</option>
+                    <option value="Pro L1">Pro L1</option>
+                    <option value="Max">Max</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="sv">SV</label>
+                <input type="text" class="sv" placeholder="ex: V1.0" />
+              </li>
+              <li class="card-input">
+                <label for="sn">SN</label>
+                <input type="text" class="sn" placeholder="ex: BB251021" />
+              </li>
+              <li class="card-input">
+                <label for="status">Status</label>
+                <div class="select-wrap">
+                  <select name="status" class="status">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="downloading">Downloading</option>
+                    <option value="downloaded">Downloaded</option>
+                    <option value="reboot">Reboot</option>
+                    <option value="succeed">Succeed</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+            <div class="btn-wrap">
+              <button class="close btn disable" type="button">
+                Close Connect
+              </button>
+              <button class="submit btn" type="button">Connect</button>
+            </div>
+          </form>
+          <h3 class="console-title">Console</h3>
+          <ul class="console-content"></ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="backdrop"></div>
+          <div class="light"></div>
+          <form action="">
+            <ul>
+              <li class="card-input">
+                <label for="brand">Brand</label>
+                <div class="select-wrap">
+                  <select name="brand" class="brand" default="">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="Projector">Projector</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Robot Vacuum">Robot Vacuum</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="model">Model</label>
+                <div class="select-wrap">
+                  <select name="model" class="model">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="L1">L1</option>
+                    <option value="Pro L1">Pro L1</option>
+                    <option value="Max">Max</option>
+                  </select>
+                </div>
+              </li>
+              <li class="card-input">
+                <label for="sv">SV</label>
+                <input type="text" class="sv" placeholder="ex: V1.0" />
+              </li>
+              <li class="card-input">
+                <label for="sn">SN</label>
+                <input type="text" class="sn" placeholder="ex: BB251021" />
+              </li>
+              <li class="card-input">
+                <label for="status">Status</label>
+                <div class="select-wrap">
+                  <select name="status" class="status">
+                    <option value="" selected disabled hidden>
+                      -- Please select --
+                    </option>
+                    <option value="downloading">Downloading</option>
+                    <option value="downloaded">Downloaded</option>
+                    <option value="reboot">Reboot</option>
+                    <option value="succeed">Succeed</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+            <div class="btn-wrap">
+              <button class="close btn disable" type="button">
+                Close Connect
+              </button>
+              <button class="submit btn" type="button">Connect</button>
+            </div>
+          </form>
+          <h3 class="console-title">Console</h3>
+          <ul class="console-content"></ul>
+        </div>
+      </div>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

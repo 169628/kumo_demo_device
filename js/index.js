@@ -2,6 +2,10 @@ $(document).ready(function () {
   function resetCard($card) {
     $card.data("ws", null);
     $card.find(".light").removeClass("connect");
+    $card.find(".brand").prop("disabled", false);
+    $card.find(".model").prop("disabled", false);
+    $card.find(".sv").prop("disabled", false);
+    $card.find(".sn").prop("disabled", false);
     $card.find(".submit").text("Connect");
     $card.find(".close").addClass("disable");
     $card.find("input, select").val("");
@@ -15,8 +19,13 @@ $(document).ready(function () {
     e.preventDefault();
 
     const $card = $(this).closest(".card");
-    let ws = $card.data("ws");
-    let session = $card.data("session");
+    // let ws = $card.data("ws");
+    // let session = $card.data("session");
+
+    $card.find(".brand").prop("disabled", true);
+    $card.find(".model").prop("disabled", true);
+    $card.find(".sv").prop("disabled", true);
+    $card.find(".sn").prop("disabled", true);
 
     const deviceData = {
       brand: $card.find(".brand").val(),
@@ -31,77 +40,77 @@ $(document).ready(function () {
     };
 
     // ===== CONNECT =====
-    if (!ws) {
-      ws = new WebSocket("ws://localhost:8000");
-      $card.data("ws", ws);
+    // if (!ws) {
+    //   ws = new WebSocket("ws://localhost:8000");
+    //   $card.data("ws", ws);
 
-      ws.onopen = () => {
-        $card.find(".light").addClass("connect");
-        $card.find(".submit").text("Send");
-        $card.find(".close").removeClass("disable");
+    //   ws.onopen = () => {
+    //     $card.find(".light").addClass("connect");
+    //     $card.find(".submit").text("Send");
+    //     $card.find(".close").removeClass("disable");
 
-        $card
-          .find(".console-content")
-          .append(
-            `<li class="send-message">Connect & Send: ${JSON.stringify(
-              deviceData,
-              null,
-              2
-            )}</li>`
-          );
-        ws.send(JSON.stringify(deviceData));
-      };
+    //     $card
+    //       .find(".console-content")
+    //       .append(
+    //         `<li class="send-message">Connect & Send: ${JSON.stringify(
+    //           deviceData,
+    //           null,
+    //           2,
+    //         )}</li>`,
+    //       );
+    //     ws.send(JSON.stringify(deviceData));
+    //   };
 
-      ws.onmessage = (e) => {
-        const obj = JSON.parse(e.data);
-        session = obj.session_id;
-        $card.data("session", session);
-        console.log("onmessage", obj);
-        $card
-          .find(".console-content")
-          .append(
-            `<li class="response-message">Response: ${JSON.stringify(
-              obj,
-              null,
-              2
-            )}</li>`
-          );
-      };
+    //   ws.onmessage = (e) => {
+    //     const obj = JSON.parse(e.data);
+    //     session = obj.session_id;
+    //     $card.data("session", session);
+    //     console.log("onmessage", obj);
+    //     $card
+    //       .find(".console-content")
+    //       .append(
+    //         `<li class="response-message">Response: ${JSON.stringify(
+    //           obj,
+    //           null,
+    //           2,
+    //         )}</li>`,
+    //       );
+    //   };
 
-      ws.onclose = () => {
-        $card.find(".console-content").append(`<li>Connection closed</li>`);
-        resetCard($card);
-      };
+    //   ws.onclose = () => {
+    //     $card.find(".console-content").append(`<li>Connection closed</li>`);
+    //     resetCard($card);
+    //   };
 
-      ws.onerror = (err) => {
-        console.error(err);
-      };
+    //   ws.onerror = (err) => {
+    //     console.error(err);
+    //   };
 
-      return;
-    }
+    //   return;
+    // }
 
     // ===== SEND =====
-    ws.send(JSON.stringify(deviceStatus));
-    $card
-      .find(".console-content")
-      .append(
-        `<li class="send-message">Send: ${JSON.stringify(
-          deviceStatus,
-          null,
-          2
-        )}</li>`
-      );
+    // ws.send(JSON.stringify(deviceStatus));
+    // $card
+    //   .find(".console-content")
+    //   .append(
+    //     `<li class="send-message">Send: ${JSON.stringify(
+    //       deviceStatus,
+    //       null,
+    //       2,
+    //     )}</li>`,
+    //   );
   });
 
   // ===== CLOSE =====
-  $(".card").on("click", ".close", function () {
-    const $card = $(this).closest(".card");
-    const ws = $card.data("ws");
+  // $(".card").on("click", ".close", function () {
+  //   const $card = $(this).closest(".card");
+  //   const ws = $card.data("ws");
 
-    if (!ws || $(this).hasClass("disable")) return;
+  //   if (!ws || $(this).hasClass("disable")) return;
 
-    resetCard($card);
-    ws.send(JSON.stringify({ status: "cancel" }));
-    ws.close();
-  });
+  //   resetCard($card);
+  //   ws.send(JSON.stringify({ status: "cancel" }));
+  //   ws.close();
+  // });
 });

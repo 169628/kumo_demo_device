@@ -1,116 +1,122 @@
 $(document).ready(function () {
+  const BASE_URL = "http://localhost:8080/kumo/api";
+
   function resetCard($card) {
     $card.data("ws", null);
     $card.find(".light").removeClass("connect");
     $card.find(".brand").prop("disabled", false);
     $card.find(".model").prop("disabled", false);
-    $card.find(".sv").prop("disabled", false);
     $card.find(".sn").prop("disabled", false);
     $card.find(".submit").text("Connect");
     $card.find(".close").addClass("disable");
     $card.find("input, select").val("");
   }
   $(".card").each(function () {
-    $(this).data("ws", null);
+    $(this).data("socket", null);
+    $(this).data("stompClient", null);
     $(this).data("session", null);
   });
 
+  // ===== BUTTON CONNECT & SEND =====
   $(".card").on("click", ".submit", function (e) {
     e.preventDefault();
 
     const $card = $(this).closest(".card");
-    // let ws = $card.data("ws");
-    // let session = $card.data("session");
+    let socket = $card.data("socket");
+    let stompClient = $card.data("stompClient");
+    let session = $card.data("session");
 
     $card.find(".brand").prop("disabled", true);
     $card.find(".model").prop("disabled", true);
-    $card.find(".sv").prop("disabled", true);
     $card.find(".sn").prop("disabled", true);
 
     const deviceData = {
+      session,
       brand: $card.find(".brand").val(),
       model: $card.find(".model").val(),
       sv: $card.find(".sv").val(),
-      tv: $card.find(".sn").val(),
-    };
-
-    const deviceStatus = {
+      sn: $card.find(".sn").val(),
       status: $card.find(".status").val(),
-      session_id: session,
     };
 
-    // ===== CONNECT =====
-    // if (!ws) {
-    //   ws = new WebSocket("ws://localhost:8000");
-    //   $card.data("ws", ws);
+    // ===== FIRST CONNECT =====
+    if (!socket) {
+      socket = new SockJS(BASE_URL + "/endpoint");
+      $card.data("socket", socket);
 
-    //   ws.onopen = () => {
-    //     $card.find(".light").addClass("connect");
-    //     $card.find(".submit").text("Send");
-    //     $card.find(".close").removeClass("disable");
+      stompClient = Stomp.over(socket);
+      $card.data("stompClient", stompClient);
 
-    //     $card
-    //       .find(".console-content")
-    //       .append(
-    //         `<li class="send-message">Connect & Send: ${JSON.stringify(
-    //           deviceData,
-    //           null,
-    //           2,
-    //         )}</li>`,
-    //       );
-    //     ws.send(JSON.stringify(deviceData));
-    //   };
+      stompClient.connect({ "content-type": "application/json" }, () => {
+        $card.find(".light").addClass("connect");
+        $card.find(".submit").text("Send");
+        $card.find(".close").removeClass("disable");
 
-    //   ws.onmessage = (e) => {
-    //     const obj = JSON.parse(e.data);
-    //     session = obj.session_id;
-    //     $card.data("session", session);
-    //     console.log("onmessage", obj);
-    //     $card
-    //       .find(".console-content")
-    //       .append(
-    //         `<li class="response-message">Response: ${JSON.stringify(
-    //           obj,
-    //           null,
-    //           2,
-    //         )}</li>`,
-    //       );
-    //   };
+        stompClient.subscribe("/msg/" + deviceData.sn, (message) => {
+          const obj = JSON.parse(message.body);
+          const { session } = obj;
+          $card.data("session", session);
+          $card
+            .find(".console-content")
+            .append(
+              `<li class="response-message">Response: ${JSON.stringify(
+                obj,
+                null,
+                2,
+              )}</li>`,
+            );
+        });
 
-    //   ws.onclose = () => {
-    //     $card.find(".console-content").append(`<li>Connection closed</li>`);
-    //     resetCard($card);
-    //   };
+        $card
+          .find(".console-content")
+          .append(
+            `<li class="send-message">Connect & Send: ${JSON.stringify(
+              deviceData,
+              null,
+              2,
+            )}</li>`,
+          );
 
-    //   ws.onerror = (err) => {
-    //     console.error(err);
-    //   };
+        stompClient.send(
+          "/connect/device/" + deviceData.sn,
+          { "content-type": "application/json" },
+          JSON.stringify(deviceData),
+        );
+      });
 
-    //   return;
-    // }
+      return;
+    }
 
-    // ===== SEND =====
-    // ws.send(JSON.stringify(deviceStatus));
-    // $card
-    //   .find(".console-content")
-    //   .append(
-    //     `<li class="send-message">Send: ${JSON.stringify(
-    //       deviceStatus,
-    //       null,
-    //       2,
-    //     )}</li>`,
-    //   );
+    // ===== SEND STATUS =====
+    $card
+      .find(".console-content")
+      .append(
+        `<li class="send-message">Send: ${JSON.stringify(
+          deviceData,
+          null,
+          2,
+        )}</li>`,
+      );
+
+    stompClient.send(
+      "/connect/device/" + deviceData.sn,
+      { "content-type": "application/json" },
+      JSON.stringify(deviceData),
+    );
   });
 
-  // ===== CLOSE =====
-  // $(".card").on("click", ".close", function () {
-  //   const $card = $(this).closest(".card");
-  //   const ws = $card.data("ws");
+  // ===== BUTTON CLOSE CONNECT =====
+  $(".card").on("click", ".close", function () {
+    const $card = $(this).closest(".card");
+    const stompClient = $card.data("stompClient");
 
-  //   if (!ws || $(this).hasClass("disable")) return;
+    if (!stompClient || $(this).hasClass("disable")) return;
 
-  //   resetCard($card);
-  //   ws.send(JSON.stringify({ status: "cancel" }));
-  //   ws.close();
-  // });
+    stompClient.disconnect(() => {
+      $card.data("socket", null);
+      $card.data("stompClient", null);
+      $card.data("session", null);
+      resetCard($card);
+    });
+  });
 });

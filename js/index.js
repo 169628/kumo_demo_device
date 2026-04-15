@@ -55,6 +55,19 @@ $(document).ready(function () {
         stompClient.subscribe("/msg/" + deviceData.sn, (message) => {
           const obj = JSON.parse(message.body);
           const { session } = obj;
+          if (session == null) {
+            $card
+              .find(".console-content")
+              .append(
+                `<li class="response-message"> === CLOSE CONNECTING === </li>`,
+              );
+            stompClient.disconnect(() => {
+              $card.data("socket", null);
+              $card.data("stompClient", null);
+              $card.data("session", null);
+              resetCard($card);
+            });
+          }
           $card.data("session", session);
           $card
             .find(".console-content")
@@ -69,6 +82,9 @@ $(document).ready(function () {
 
         $card
           .find(".console-content")
+          .append(
+            `<li class="send-message"> === WEBSOCKET CONNECTING === </li>`,
+          )
           .append(
             `<li class="send-message">Connect & Send: ${JSON.stringify(
               deviceData,
